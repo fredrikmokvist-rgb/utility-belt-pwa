@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { tools } from "@/lib/tools";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -19,18 +20,15 @@ export default function Navbar() {
         </Link>
         
         <div className="hidden md:flex items-center gap-1">
-          <Link 
-            href="/pdf-editor" 
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${pathname === '/pdf-editor' ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50'}`}
-          >
-            PDF Editor
-          </Link>
-          <Link 
-            href="/heic-converter" 
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${pathname === '/heic-converter' ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50'}`}
-          >
-            HEIC Converter
-          </Link>
+          {tools.map((tool) => (
+            <Link
+              key={tool.slug}
+              href={tool.slug}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${pathname === tool.slug ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50'}`}
+            >
+              {tool.name}
+            </Link>
+          ))}
         </div>
       </div>
       
